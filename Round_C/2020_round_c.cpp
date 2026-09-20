@@ -15,21 +15,14 @@ int k = 0; // aditional workouts
 
 int k_int = 0; // k interger
 
-int diff = 0; // diffrence
+int _Diff = 0; // Difficulty
 
 std::vector<int> session_time_final(n + k);
 std::vector<int> session_time_logs(n);
 std::vector<int> k_integers(k);
 std::vector<int> k_pos(k);
 
-void diff_finder(int i){ // int position, arrays start at postion [0]
-
-
-    //  ****find the diffrence in final vector between i and i + 1 , and keep checking until end of array
-    //  ***save the  current highest diffrence and comapre against next diffrence
-    // *** will be run after at end of k_func loop
-    
-
+void diff_finder(int i){ // int position, last item of array not used.
 
         auto diff = abs(session_time_final[i] - session_time_final[i + 1]); 
 
@@ -39,34 +32,34 @@ void diff_finder(int i){ // int position, arrays start at postion [0]
 
         if(*cDiff > maxDiff_){
             maxDiff_ = *cDiff;
+            _Diff = maxDiff_;
         }
-        
-        std::cout << "Diff: " << diff << std::endl;
-        std::cout << "Max Diff: " << maxDiff_ << std::endl;
-        
-   //};
 
-
-
-    
 };
 
-void k_func(){ // load array of added values
+void print(){
+
+    for(int j = 0; j < session_time_final.size(); j++){
+
+        std::cout << session_time_final[j];
+        std::cout << ", ";
+    }
+
+    std::cout << '\n';
+    
+}
+
+void k_func(){ // array scribarru
 
     int v_size = session_time_logs.size(); 
-
-   
-    // current array value - second value / 2 + the first
+    
     for(int i = 1; i <= k; i++){
-            //std::cout << session_time_final.size() << "<<<<<<<<" << '\n';
+            
             if(v_size > 2){
 
-            
         
             int *pCurrent = &session_time_logs[i + 1];
             int *pPrev = &session_time_logs[i];
-
-            
 
             
             k_int = (std::round(*pCurrent + *pPrev)/2.0);
@@ -81,84 +74,30 @@ void k_func(){ // load array of added values
 
             session_time_final.insert(session_time_final.begin() + (k_pos[i - 1] - 1), k_integers[i - 1]);
             
-            // make for loop to 
-
-            //int current_diff abs(session_time_final[k_pos[i]] - session_time_final[k_pos[i] - 1]);
-            
-            //diff_finder(i);
 
             }else if(v_size > 2){
                 session_time_final.insert(session_time_final.begin(), session_time_logs[i - 2]);
             }
-
-            
-
-        //check if 
-         
-
-        //session_time_logs.insert(session_time_logs.begin() + (v_size - k_int), k_int);
-
-        
-
-        //log k positions to be inserted another vector to insert all at once
-
-
-        
-
-        std::cout << "k_int: " << k_integers[i - 1] << '\n';
         
     }
+
+    // Print List
+    print();
     
     // Find Diff
     for(int i = 0; i < (session_time_final.size() - 1); i++){
         diff_finder(i);
     }
-    
+
+    std::cout << '\n' << "Diff: " << _Diff << std::endl;
+
     
 };
 
-
-
-
-
-void print(){
-
-    std::cout << "session_time_logs ";
-
-    for(int i = 0; i < session_time_logs.size(); i++){
-
-        std::cout << session_time_logs[i];
-        std::cout << ", ";
-    }
-
-    std::cout << '\n';
-
-    std::cout << "session_time_final ";
-
-    for(int j = 0; j < session_time_final.size(); j++){
-
-        std::cout << session_time_final[j];
-        std::cout << ", ";
-    }
-    
-    std::cout << '\n';
-
-    std::cout << "k_pos ";
-
-    for(int k = 0; k < k_pos.size(); k++){
-
-        std::cout << k_pos[k];
-        std::cout << ", ";
-    }
-    
-    std::cout << '\n';
-
-}
 
 void cls(){
     system("clear");
 };
-
 
 
 void run(){
@@ -172,14 +111,14 @@ void run(){
     std::cout << std::endl;
 
     cls();
-    
+
     //Input
 
     std::cout << t << '\n';
     std::cout << n << ' ' << k << '\n';
     
     
-    // Lists
+    // Generate Lists
 
     for(int tc = 1; tc <= t; tc++){ 
         
@@ -193,36 +132,6 @@ void run(){
 
     }
 
-    
-
-
-    // Output
-
-    
-
-    //
-
-    //test 
-    //std::cout << '\n' << "Max: " << max << std::endl;
-    //std::cout << "Min: " << min << std::endl;
-    
-    
-
-
-
-    // Output
-
-
-    //
-
-
-    //std::cout << "Case #" << tc << ": " << min_diff << std::endl;
-
-
-
-    
-
-
 };
 
 
@@ -232,20 +141,7 @@ int main(){
     
     run();
     k_func();
-    print();
-
     
-    
-    
-
-
-    
-    // make sure every iteration difficulty increaces (if not add k), always keep at lowest 
-    //difficulty while adding 
-
-    
-
-
 
     return 0;
 };
