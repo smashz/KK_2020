@@ -42,7 +42,9 @@ void print(){
     for(int j = 0; j < session_time_final.size(); j++){
 
         std::cout << session_time_final[j];
-        std::cout << ", ";
+        if(j != session_time_final.size() - 1){
+            std::cout << ", ";
+        }
     }
 
     std::cout << '\n';
