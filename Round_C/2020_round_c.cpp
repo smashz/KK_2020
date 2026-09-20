@@ -91,7 +91,7 @@ void k_func(){ // array scribarru
         diff_finder(i);
     }
 
-    std::cout << '\n' << "Diff: " << _Diff << std::endl;
+    std::cout << '\n' << "Difficulty: " << _Diff << std::endl;
 
     
 };
@@ -105,8 +105,11 @@ void cls(){
 void run(){
 
     //Input
-
+    
     std::cin >> t;
+    //for(int i = 100; t < i; ++t){}
+
+
     std::cin >> n >> k;
     
     
@@ -116,7 +119,7 @@ void run(){
 
     //Input
 
-    std::cout << t << '\n';
+    std::cout << '\n' << t << '\n';
     std::cout << n << ' ' << k << '\n';
     
     
@@ -134,6 +137,8 @@ void run(){
 
     }
 
+    k_func();
+
 };
 
 
@@ -142,8 +147,6 @@ int main(){
     std::cout << "\n";
     
     run();
-    k_func();
-    
 
     return 0;
 };
