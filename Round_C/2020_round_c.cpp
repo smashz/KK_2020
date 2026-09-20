@@ -176,7 +176,7 @@ void run(){
     std::cout << n << ' ' << k << '\n';
     
     
-    for(int tc = 1; tc <= t + k; tc++){ 
+    for(int tc = 1; tc <= t; tc++){ 
           
         //while(tc<=t){
 
@@ -189,7 +189,7 @@ void run(){
         m = (m + n);
         
 
-            session_time_logs.push_back(m);
+        session_time_logs.push_back(m);
         
         session_time_final.insert(session_time_final.begin() + (session_time_final.size()), session_time_logs[tc - 1]);
         
