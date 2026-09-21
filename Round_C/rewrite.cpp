@@ -22,18 +22,13 @@ int _Diff = 0; // Difficulty
 // Input File
 std::ifstream file("test_sets/ts1_input.txt");
 
-
 std::vector<int> n_inputs(t);
 std::vector<int> k_inputs(t);
-
-
 
 std::vector<int> session_time_final(n + k);
 std::vector<int> session_time_logs(n);
 std::vector<int> k_integers(k);
 std::vector<int> k_pos(k);
-
-
 
 // function to take inputs and test sets from test sets
 
@@ -43,9 +38,9 @@ void _sortSet()
     // Take Input from second Line
     // Create List for current Time List
     // Repeat Until End of File
-    
 
-    if(!file.is_open()){
+    if (!file.is_open())
+    {
         std::cout << "Failed to load Input file" << '\n';
         return;
     }
@@ -56,68 +51,58 @@ void _sortSet()
 
     while (std::getline(file, line))
     { // std::getline its like a (for loop) everytime it runs goes to next line, returns true/false
-        
+
         ++totalLines;
     }
 
-    file.clear();      // clear EOF flag
-    file.seekg(0);     // rewind to start
+    file.clear();  // clear EOF flag
+    file.seekg(0); // rewind to start
 
-
-    //std::cout << totalLines << '\n';
+    // std::cout << totalLines << '\n';
 
     file >> t;
 
-    
-
     std::cout << t << '\n';
 
-    if (!(file >> n)) {
-        
+    if (!(file >> n))
+    {
+
         std::cout << "Failed to load n\n";
-        
+
         return;
     }
 
     //
-    file.clear();      // clear EOF flag
-    file.seekg(0);     // rewind to start
-    std::getline(file,line); // read line to skip one
-    file >> n; // first value
-   
+    file.clear();             // clear EOF flag
+    file.seekg(0);            // rewind to start
+    std::getline(file, line); // read line to skip one
+    file >> n;                // first value
 
-    file.clear();      // clear EOF flag
-    file.seekg(0);     // rewind to start
+    file.clear();  // clear EOF flag
+    file.seekg(0); // rewind to start
 
-    //std::cout << j_pos << '\n';
+    // std::cout << j_pos << '\n';
 
     // find n's inputs
-    for (int a = 0; a < (totalLines); ++a)
-    {   
-        std::getline(file,line); // read line to skip one
+    for (int a = 0; a < t; ++a)
+    {
+        std::getline(file, line); // read line to skip one
         std::streampos j_pos = file.tellg();
-        
 
-        for(int j = 0; j < 2; j++){ 
-            //file.clear(); 
+        for (int j = 0; j < 2; j++)
+        {
+            // file.clear();
             file.seekg(j_pos);
             file >> n;
-            
-            std::getline(file,line); // read line to skip one
-            
 
+            std::getline(file, line); // read line to skip one
         }
         n_inputs.insert(n_inputs.begin() + n_inputs.size(), n);
- 
+
         std::cout << n_inputs[a] << '/';
+
         
-        //test limiter
-        if (a == (t - 1))
-        {
-            return; // change to continue
-        }
     }
-    
 };
 
 void diff_finder(int i)
@@ -178,12 +163,7 @@ void k_func()
 
             session_time_final.insert(session_time_final.begin() + (k_pos[i - 1] - 1), k_integers[i - 1]);
 
-
-
-
-            //make so if k amount is jot reached by final list rerun k_func where it is called
-
-
+            // make so if k amount is jot reached by final list rerun k_func where it is called
         }
         else if (v_size > 2)
         {
@@ -216,8 +196,8 @@ void run()
 
     // Input
 
-    //std::cin >> t;
-    // for(int i = 100; t < i; ++t){}
+    // std::cin >> t;
+    //  for(int i = 100; t < i; ++t){}
 
     std::cin >> n >> k;
 
@@ -236,9 +216,9 @@ void run()
     for (int tc = 1; tc <= n; tc++)
     {
 
-        //m = (m + n);
+        // m = (m + n);
 
-        //session_time_logs.push_back(m);
+        // session_time_logs.push_back(m);
 
         session_time_final.insert(session_time_final.begin() + (session_time_final.size()), session_time_logs[tc - 1]);
     }
