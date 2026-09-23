@@ -199,10 +199,10 @@ void k_func()
     std::cout << " log"<< _currentList << '\n';
     int i = 1;
     
-    for (i; i <= k_inputs[_currentList - 1] + 1; i++) // k_inputs[_currentList]
+    for (i; i <= k_inputs[_currentList - 1] ; i++) // k_inputs[_currentList]
     {
         
-        if (session_time_logs.size() > 2)
+        if (session_time_logs.size() > 2 && session_time_final.size() <= n_inputs[_currentList] + k_inputs[_currentList])
         {
             
             int *pCurrent = &session_time_logs[i + 1];
@@ -218,6 +218,7 @@ void k_func()
 
             k_pos.push_back(index + 1);
 
+            std::cout << " c"<< session_time_final[i+ 1] << '\n';
             std::cout << " c"<< session_time_final[i] << '\n';
             
 
