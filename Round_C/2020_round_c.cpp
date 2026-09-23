@@ -15,14 +15,16 @@ int _Diff = 0; // Difficulty
 int _currentList = 0; // current list in use
 
 // Input File
-std::ifstream file("test_sets/ts1_input.txt");
+std::ifstream file("test_sets/ts1_input copy.txt");
 std::string line; // file line
 
 std::vector<int> n_inputs(t);
 std::vector<int> k_inputs(t);
 
-std::vector<int> session_time_final(n + k);
-std::vector<int> session_time_logs(t);
+
+//std::vector<int> session_time_final(n_inputs[_currentList] + k_inputs[_currentList]);
+std::vector<int> session_time_final;
+std::vector<int> session_time_logs;
 
 std::vector<int> k_integers(k);
 std::vector<int> k_pos(k);
@@ -54,14 +56,14 @@ void _dumpList(){ // rewind to start befere ran
         l_pos = file.tellg();
     }
 
-    for (int i = 1; i < n_inputs[_currentList] + k_inputs[_currentList]; i++)
+    for (int i = 0; i < n_inputs[_currentList]; i++)
     {
 
         // m = (m + n);
 
         // session_time_logs.push_back(m);
 
-        session_time_final.insert(session_time_final.begin() + (session_time_final.size()), session_time_logs[i - 1]);
+        session_time_final.insert(session_time_final.begin() + (session_time_final.size()), session_time_logs[i]);
     }
 
     _currentList++;
@@ -190,20 +192,18 @@ void diff_finder(int i)
 void k_func()
 { // array scribarru
 
-    std::cout << '\n'
-              << "k_inputs: " << n_inputs[_currentList] << std::endl;
+    
     
     // make so if list has less inputs than k int go back 
     // to after first k insert and start again from that
-    std::cout << " log"<< session_time_logs.size() << '\n';
+    std::cout << " log"<< session_time_final.size() << '\n';
 
-    for (int i = 1; i <= k_inputs[_currentList]; i++)
+    
+    for (int i = 1; i <= k_inputs[_currentList] + 1; i++) // k_inputs[_currentList]
     {
-
-        if (session_time_logs.size() > 2)
+        
+        if (session_time_logs.size() > 2 && session_time_final.size() <= n_inputs[_currentList])
         {
-
-
             
             int *pCurrent = &session_time_logs[i + 1];
             int *pPrev = &session_time_logs[i];
@@ -212,20 +212,21 @@ void k_func()
 
             k_integers.push_back(k_int);
 
-            auto k_currentPos = std::find(session_time_logs.begin(), session_time_logs.end(), session_time_logs[i + i]);
+            auto k_currentPos = std::find(session_time_final.begin(), session_time_final.end(), session_time_final[i + i]);
 
-            int index = k_currentPos - session_time_logs.begin(); // convert pos find to int
+            int index = k_currentPos - session_time_final.begin(); // convert pos find to int
 
             k_pos.push_back(index + 1);
+
+            std::cout << " log"<< *pCurrent << '\n';
+            
 
             session_time_final.insert(session_time_final.begin() + (k_pos[i - 1] - 1), k_integers[i - 1]);
             
             // make so if k amount is jot reached by final list rerun k_func where it is called
         }
-        else if (session_time_logs.size() < 2)
-        {
-            session_time_final.insert(session_time_final.begin(), session_time_logs[i - 1]);
-        }
+        
+        
     }
 
     // Print List
@@ -238,6 +239,7 @@ void k_func()
     //}
 
     // check if the
+    std::cout << " log"<< session_time_final.size() << '\n';
 
     std::cout << '\n'
               << "Difficulty: " << _Diff << std::endl;
