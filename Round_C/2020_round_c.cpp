@@ -19,6 +19,9 @@ int k_int = 0; // k interger
 
 int _Diff = 0; // Difficulty
 
+std::string line; // file line
+
+
 // Input File
 std::ifstream file("test_sets/ts1_input.txt");
 
@@ -26,13 +29,51 @@ std::vector<int> n_inputs(t);
 std::vector<int> k_inputs(t);
 
 std::vector<int> session_time_final(n + k);
-std::vector<int> session_time_logs(n);
+std::vector<int> session_time_logs(t);
+
 std::vector<int> k_integers(k);
 std::vector<int> k_pos(k);
 
 // function to take inputs and test sets from test sets
 
-void _sortSet()
+void _dumpList(){ // rewind to start + 1 befere ran  
+
+    // go to line 3
+    // count words on while dump
+    int wordsinList = 0;
+    int temp = 0;
+    
+
+    //file.clear();  // clear EOF flag
+    //file.seekg(l_pos); 
+
+    file.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip line
+    
+    //l_pos = file.tellg();
+    
+    std::getline(file, line);
+    std::streampos l_pos = file.tellg();
+    //std::streampos l_pos = file.tellg();
+    //std::cout << line << std::endl;
+    //file >> temp;
+    //std::cout << temp  << std::endl;
+
+    
+
+    for(int fn = 0; n_inputs.size() > fn; fn++){
+        file.seekg(l_pos); 
+        wordsinList++;
+        file >> temp;
+        session_time_logs.insert(session_time_logs.begin() + (session_time_logs.size()), temp);
+        l_pos = file.tellg();
+        //std::cout << session_time_logs[fn] << ", " << std::endl;
+    }
+
+    std::cout << n_inputs.size() << std::endl;
+
+}
+
+void _sortSet() // dumps n's ank k's into vector _inputs
 {
     // skip first line
     // Take Input from second Line
@@ -47,7 +88,7 @@ void _sortSet()
 
     // Count lines from test set
     int totalLines = 0;
-    std::string line;
+    
 
     while (std::getline(file, line))
     { // std::getline its like a (for loop) everytime it runs goes to next line, returns true/false
@@ -100,7 +141,7 @@ void _sortSet()
         n_inputs.insert(n_inputs.begin() + n_inputs.size(), n);
 
         //std::cout << n_inputs[a] << '/';
-
+        
         
     }
 
@@ -127,7 +168,7 @@ void _sortSet()
 
         //std::cout << k_inputs[b] << '/';
 
-        std::cout << k << "/";
+        //std::cout << k << "/";
     }
 };
 
@@ -150,11 +191,17 @@ void diff_finder(int i)
 void print()
 {
 
-    for (int j = 0; j < session_time_final.size(); j++)
+    file.clear();             // clear EOF flag
+    file.seekg(0);            // rewind to start
+    
+
+    _dumpList();
+
+    for (int j = 0; j < session_time_logs.size(); j++)
     {
 
-        std::cout << session_time_final[j];
-        if (j != session_time_final.size() - 1)
+        std::cout << session_time_logs[j];
+        if (j != session_time_logs.size() - 1)
         {
             std::cout << ", ";
         }
@@ -222,34 +269,27 @@ void run()
 
     // Input
 
-    // std::cin >> t;
-    //  for(int i = 100; t < i; ++t){}
 
-    std::cin >> n >> k;
 
     std::cout << std::endl;
 
     cls();
 
-    // Input
-
-    std::cout << '\n'
-              << t << '\n';
-    std::cout << n << ' ' << k << '\n';
-
     // Generate Lists
 
-    for (int tc = 1; tc <= n; tc++)
+    for (int i = 1; i <= t; i++)
     {
 
         // m = (m + n);
 
         // session_time_logs.push_back(m);
 
-        session_time_final.insert(session_time_final.begin() + (session_time_final.size()), session_time_logs[tc - 1]);
+
+
+        session_time_logs.insert(session_time_logs.begin() + (session_time_final.size()), session_time_logs[i - 1]);
     }
 
-    k_func();
+    //k_func();
 };
 
 int main()
@@ -258,6 +298,7 @@ int main()
     std::cout << "\n";
     _sortSet();
     // run();
+    print();
 
     return 0;
 };
