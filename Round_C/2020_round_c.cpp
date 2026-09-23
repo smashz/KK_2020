@@ -54,6 +54,16 @@ void _dumpList(){ // rewind to start befere ran
         l_pos = file.tellg();
     }
 
+    for (int i = 1; i < n_inputs[_currentList] + k_inputs[_currentList]; i++)
+    {
+
+        // m = (m + n);
+
+        // session_time_logs.push_back(m);
+
+        session_time_final.insert(session_time_final.begin() + (session_time_final.size()), session_time_logs[i - 1]);
+    }
+
     _currentList++;
     std::cout << _currentList << std::endl;
 }
@@ -185,7 +195,7 @@ void k_func()
     
     // make so if list has less inputs than k int go back 
     // to after first k insert and start again from that
-
+    std::cout << " log"<< session_time_logs.size() << '\n';
 
     for (int i = 1; i <= k_inputs[_currentList]; i++)
     {
@@ -193,6 +203,8 @@ void k_func()
         if (session_time_logs.size() > 2)
         {
 
+
+            
             int *pCurrent = &session_time_logs[i + 1];
             int *pPrev = &session_time_logs[i];
 
@@ -207,12 +219,12 @@ void k_func()
             k_pos.push_back(index + 1);
 
             session_time_final.insert(session_time_final.begin() + (k_pos[i - 1] - 1), k_integers[i - 1]);
-
+            
             // make so if k amount is jot reached by final list rerun k_func where it is called
         }
-        else if (session_time_logs.size() > 2)
+        else if (session_time_logs.size() < 2)
         {
-            session_time_final.insert(session_time_final.begin(), session_time_logs[i - 2]);
+            session_time_final.insert(session_time_final.begin(), session_time_logs[i - 1]);
         }
     }
 
@@ -234,7 +246,7 @@ void k_func()
 void print()
 {
 
-    
+    /*
     for (int i = 0; i < session_time_logs.size(); i++)
     {
 
@@ -246,7 +258,7 @@ void print()
     }
 
     std::cout << '\n';
-   
+    */
     
     for (int j = 0; j < session_time_final.size(); j++)
     {
@@ -283,17 +295,9 @@ void run()
 
     // Generate Lists
 
-    for (int i = 1; i <= t; i++)
-    {
+    
 
-        // m = (m + n);
-
-        // session_time_logs.push_back(m);
-
-        session_time_logs.insert(session_time_logs.begin() + (session_time_final.size()), session_time_logs[i - 1]);
-    }
-
-    k_func();
+    
 };
 
 int main()
@@ -306,7 +310,7 @@ int main()
     file.clear();  // clear EOF flag
     file.seekg(0); // rewind to start
     _dumpList();
-    //k_func();
+    k_func();
     //run();
     print();
 
