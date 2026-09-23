@@ -206,7 +206,7 @@ void k_func()
             int *pCurrent = &session_time_logs[i];
             int *pPrev = &session_time_logs[i - 1];
 
-            k_int = (std::round(*pCurrent + *pPrev) / 2.0);
+            k_int = std::round((*pCurrent + *pPrev) / 2.0);
 
             k_integers.push_back(k_int);
 
