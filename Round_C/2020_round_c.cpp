@@ -10,7 +10,7 @@ int n = 0; // sessions
 int m = 0; // minutes
 int w = 0; // number of workouts
 int k = 0; // aditional workouts
-int k_int = 0; // k interger
+float k_int = 0; // k interger
 int _Diff = 0; // Difficulty
 int _currentList = 0; // current list in use
 
@@ -21,8 +21,6 @@ std::string line; // file line
 std::vector<int> n_inputs(t);
 std::vector<int> k_inputs(t);
 
-
-//std::vector<int> session_time_final(n_inputs[_currentList] + k_inputs[_currentList]);
 std::vector<int> session_time_final;
 std::vector<int> session_time_logs;
 
@@ -205,8 +203,8 @@ void k_func()
         if (session_time_logs.size() > 2 && session_time_final.size() <= n_inputs[_currentList] + k_inputs[_currentList])
         {
             
-            int *pCurrent = &session_time_logs[i + 1];
-            int *pPrev = &session_time_logs[i];
+            int *pCurrent = &session_time_logs[i];
+            int *pPrev = &session_time_logs[i - 1];
 
             k_int = (std::round(*pCurrent + *pPrev) / 2.0);
 
@@ -222,17 +220,10 @@ void k_func()
             std::cout << " c"<< session_time_final[i] << '\n';
             
 
-            session_time_final.insert(session_time_final.begin() + (k_pos[i - 1] - 1), k_integers[i - 1]);
+            session_time_final.insert(session_time_final.begin() + (k_pos[i - 1] - 2), k_integers[i - 1]);
             
             // make so if k amount is jot reached by final list rerun k_func where it is called
-        }else if(session_time_final.size() >= n_inputs[_currentList] + k_inputs[_currentList]){
-            //i == 1;
-            std::cout << "nigger" << '\n';
-            k_func();
-            
-
         }
-        
         
         
     }
