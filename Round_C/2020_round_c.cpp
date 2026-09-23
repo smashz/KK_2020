@@ -29,8 +29,7 @@ std::vector<int> k_pos(k);
 
 // function to take inputs and test sets from test sets
 
-void _dumpList()
-{ // rewind to start + 1 befere ran
+void _dumpList(){ // rewind to start befere ran
 
     // go to line 3
     // count words on while dump
