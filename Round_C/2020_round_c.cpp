@@ -196,13 +196,13 @@ void k_func()
     
     // make so if list has less inputs than k int go back 
     // to after first k insert and start again from that
-    std::cout << " log"<< session_time_final.size() << '\n';
-
+    std::cout << " log"<< _currentList << '\n';
+    int i = 1;
     
-    for (int i = 1; i <= k_inputs[_currentList] + 1; i++) // k_inputs[_currentList]
+    for (i; i <= k_inputs[_currentList - 1] + 1; i++) // k_inputs[_currentList]
     {
         
-        if (session_time_logs.size() > 2 && session_time_final.size() <= n_inputs[_currentList])
+        if (session_time_logs.size() > 2)
         {
             
             int *pCurrent = &session_time_logs[i + 1];
@@ -218,16 +218,25 @@ void k_func()
 
             k_pos.push_back(index + 1);
 
-            std::cout << " log"<< *pCurrent << '\n';
+            std::cout << " c"<< session_time_final[i] << '\n';
             
 
             session_time_final.insert(session_time_final.begin() + (k_pos[i - 1] - 1), k_integers[i - 1]);
             
             // make so if k amount is jot reached by final list rerun k_func where it is called
+        }else if(session_time_final.size() >= n_inputs[_currentList] + k_inputs[_currentList]){
+            //i == 1;
+            std::cout << "nigger" << '\n';
+            k_func();
+            
+
         }
         
         
+        
     }
+
+    
 
     // Print List
     //print();
