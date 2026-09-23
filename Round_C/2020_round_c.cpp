@@ -6,18 +6,13 @@
 #include <string>
 
 int t = 0; // iterations
-
 int n = 0; // sessions
-
 int m = 0; // minutes
-
 int w = 0; // number of workouts
-
 int k = 0; // aditional workouts
-
 int k_int = 0; // k interger
-
 int _Diff = 0; // Difficulty
+int _currentList = 0; // current list in use
 
 // Input File
 std::ifstream file("test_sets/ts1_input.txt");
@@ -41,8 +36,8 @@ void _dumpList()
     // count words on while dump
     int wordsinList = 0;
     int temp = 0;
-    int _currentList = 0;
-
+    
+    
     file.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // skip line
 
     // l_pos = file.tellg();
@@ -63,6 +58,8 @@ void _dumpList()
     _currentList++;
     std::cout << _currentList << std::endl;
 }
+
+
 
 void _sortSet() // dumps n's ank k's into vector _inputs
 {
@@ -158,7 +155,12 @@ void _sortSet() // dumps n's ank k's into vector _inputs
 
         // std::cout << k << "/";
     }
+
+    
+
 };
+
+
 
 void diff_finder(int i)
 { // int position, last item of array not used.
@@ -176,36 +178,20 @@ void diff_finder(int i)
     }
 };
 
-void print()
-{
-
-    file.clear();  // clear EOF flag
-    file.seekg(0); // rewind to start
-
-    _dumpList();
-
-    for (int j = 0; j < session_time_logs.size(); j++)
-    {
-
-        std::cout << session_time_logs[j];
-        if (j != session_time_logs.size() - 1)
-        {
-            std::cout << ", ";
-        }
-    }
-
-    std::cout << '\n';
-}
-
 void k_func()
 { // array scribarru
 
-    int v_size = session_time_logs.size();
+    std::cout << '\n'
+              << "k_inputs: " << n_inputs[_currentList] << std::endl;
+    
+    // make so if list has less inputs than k int go back 
+    // to after first k insert and start again from that
 
-    for (int i = 1; i <= k; i++)
+
+    for (int i = 1; i <= k_inputs[_currentList]; i++)
     {
 
-        if (v_size > 2)
+        if (session_time_logs.size() > 2)
         {
 
             int *pCurrent = &session_time_logs[i + 1];
@@ -225,26 +211,62 @@ void k_func()
 
             // make so if k amount is jot reached by final list rerun k_func where it is called
         }
-        else if (v_size > 2)
+        else if (session_time_logs.size() > 2)
         {
             session_time_final.insert(session_time_final.begin(), session_time_logs[i - 2]);
         }
     }
 
     // Print List
-    print();
+    //print();
 
     // Find Diff
-    for (int i = 0; i < (session_time_final.size() - 1); i++)
-    {
-        diff_finder(i);
-    }
+    //for (int i = 0; i < (session_time_final.size() - 1); i++)
+    //{
+        //diff_finder(i);
+    //}
 
     // check if the
 
     std::cout << '\n'
               << "Difficulty: " << _Diff << std::endl;
 };
+
+void print()
+{
+
+    
+    for (int i = 0; i < session_time_logs.size(); i++)
+    {
+
+        std::cout << session_time_logs[i];
+        if (i != session_time_logs.size() - 1)
+        {
+            std::cout << ", ";
+        }
+    }
+
+    std::cout << '\n';
+   
+    
+    for (int j = 0; j < session_time_final.size(); j++)
+    {
+
+        std::cout << session_time_final[j];
+        if (j != session_time_final.size() - 1)
+        {
+            std::cout << ", ";
+        }
+    }
+
+    std::cout << '\n';
+
+    
+}
+
+
+
+
 
 void cls()
 {
@@ -272,15 +294,21 @@ void run()
         session_time_logs.insert(session_time_logs.begin() + (session_time_final.size()), session_time_logs[i - 1]);
     }
 
-    // k_func();
+    k_func();
 };
 
 int main()
 {
 
     std::cout << "\n";
+    
     _sortSet();
-    // run();
+
+    file.clear();  // clear EOF flag
+    file.seekg(0); // rewind to start
+    _dumpList();
+    //k_func();
+    //run();
     print();
 
     return 0;
